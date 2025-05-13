@@ -13,7 +13,7 @@ class PokedexApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pokédex App',
+      title: 'Pok-Codex App',
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.cyan,
