@@ -1,4 +1,3 @@
-// lib/screens/pokemon_detail_page.dart
 import 'package:flutter/material.dart';
 import '../models/pokemon.dart';
 
@@ -62,7 +61,13 @@ class PokemonDetailPage extends StatelessWidget {
                 'Type: ${pokemon.types.join(', ')}\n'
                 'Height: ${pokemon.height} m\n'
                 'Weight: ${pokemon.weight} kg\n'
-                'Abilities: ${pokemon.abilities.join(', ')}',
+                'Abilities: ${pokemon.abilities.join(', ')}\n'
+                'HP: ${pokemon.stats['hp'] ?? 'Unknown'}\n'
+                'Attack: ${pokemon.stats['attack'] ?? 'Unknown'}\n'
+                'Defense: ${pokemon.stats['defense'] ?? 'Unknown'}\n'
+                'Special Attack: ${pokemon.stats['special-attack'] ?? 'Unknown'}\n'
+                'Special Defense: ${pokemon.stats['special-defense'] ?? 'Unknown'}\n'
+                'Speed: ${pokemon.stats['speed'] ?? 'Unknown'}',
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 18,
