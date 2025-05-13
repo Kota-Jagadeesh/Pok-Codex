@@ -40,9 +40,8 @@ class Pokemon {
       types: (json['types'] as List)
           .map((type) => type['type']['name'].toString())
           .toList(),
-      height: (json['height'] / 10).toDouble(), // Convert decimeters to meters
-      weight:
-          (json['weight'] / 10).toDouble(), // Convert hectograms to kilograms
+      height: (json['height'] / 10).toDouble(),
+      weight: (json['weight'] / 10).toDouble(),
       abilities: (json['abilities'] as List)
           .map((ability) => ability['ability']['name'].toString())
           .toList(),
