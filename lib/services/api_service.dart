@@ -6,7 +6,6 @@ import '../models/pokemon.dart';
 class ApiService {
   static const String baseUrl = 'https://pokeapi.co/api/v2';
 
-  // Fetch list of Pokémon
   Future<List<PokemonListItem>> fetchPokemonList({int limit = 151}) async {
     final response = await http.get(Uri.parse('$baseUrl/pokemon?limit=$limit'));
     if (response.statusCode == 200) {
@@ -19,7 +18,6 @@ class ApiService {
     }
   }
 
-  // Fetch Pokémon details by URL
   Future<Pokemon> fetchPokemonDetails(String url) async {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
