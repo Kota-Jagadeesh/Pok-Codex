@@ -34,7 +34,6 @@ class PokemonDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Pokémon Image
               Center(
                 child: Image.network(
                   pokemon.imageUrl,
@@ -49,7 +48,6 @@ class PokemonDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              // Pokémon Name
               Text(
                 pokemon.name,
                 style: const TextStyle(
@@ -60,7 +58,6 @@ class PokemonDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              // Pokémon Details
               Text(
                 'Type: ${pokemon.types.join(', ')}\n'
                 'Height: ${pokemon.height} m\n'
