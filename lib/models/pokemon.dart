@@ -1,11 +1,12 @@
-// import 'dart:convert';
+// import 'dart:convert'; // for json parsing
 
+//class to represent pokemon in api list responses
 class PokemonListItem {
   final String name;
-  final String url;
+  final String url; // contains data for each pokeon in the list
 
   PokemonListItem({required this.name, required this.url});
-
+// a factory method-converts json to pokemonlistitem
   factory PokemonListItem.fromJson(Map<String, dynamic> json) {
     return PokemonListItem(
       name: json['name'],
@@ -14,6 +15,7 @@ class PokemonListItem {
   }
 }
 
+// class for detailed pokemon page -  store complet info of pokemon
 class Pokemon {
   final String name;
   final String imageUrl;
@@ -32,7 +34,7 @@ class Pokemon {
     required this.abilities,
     required this.stats, // added to constructor
   });
-
+// factory method to convert json data to pokemon obj
   factory Pokemon.fromJson(Map<String, dynamic> json) {
     return Pokemon(
       name: json['name'],
