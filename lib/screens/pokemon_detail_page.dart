@@ -13,35 +13,35 @@ class PokemonDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text(
-          pokemon.name,
-          style: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFCE93D8),
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     pokemon.name,
+      //     style: const TextStyle(
+      //       fontFamily: 'Roboto',
+      //       fontSize: 28,
+      //       fontWeight: FontWeight.bold,
+      //       color: Color(0xFFCE93D8),
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.black,
+      //   elevation: 0,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(100.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: Image.network(
                   pokemon.imageUrl,
-                  width: 300,
-                  height: 300,
+                  width: 200,
+                  height: 200,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) => const Icon(
                     Icons.error,
-                    color: Color.fromARGB(255, 220, 255, 19),
+                    color: Color.fromARGB(255, 255, 255, 255),
                     size: 50,
                   ),
                 ),
@@ -53,7 +53,7 @@ class PokemonDetailPage extends StatelessWidget {
                   fontFamily: 'Roboto',
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.lime,
+                  color: Color.fromARGB(255, 255, 43, 244),
                 ),
               ),
               const SizedBox(height: 20),
@@ -71,7 +71,7 @@ class PokemonDetailPage extends StatelessWidget {
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 18,
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ),
                 textAlign: TextAlign.center,
               ),
