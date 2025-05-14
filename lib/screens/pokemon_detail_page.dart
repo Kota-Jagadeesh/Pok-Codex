@@ -36,12 +36,12 @@ class PokemonDetailPage extends StatelessWidget {
               Center(
                 child: Image.network(
                   pokemon.imageUrl,
-                  width: 250,
-                  height: 250,
+                  width: 300,
+                  height: 300,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) => const Icon(
                     Icons.error,
-                    color: Colors.lime,
+                    color: Color.fromARGB(255, 220, 255, 19),
                     size: 50,
                   ),
                 ),
@@ -61,7 +61,7 @@ class PokemonDetailPage extends StatelessWidget {
                 'Type: ${pokemon.types.join(', ')}\n'
                 'Height: ${pokemon.height} m\n'
                 'Weight: ${pokemon.weight} kg\n'
-                'Abilities: ${pokemon.abilities.join(', ')}\n'
+                // 'Abilities: ${pokemon.abilities.join(', ')}\n'
                 'HP: ${pokemon.stats['hp'] ?? 'Unknown'}\n'
                 'Attack: ${pokemon.stats['attack'] ?? 'Unknown'}\n'
                 'Defense: ${pokemon.stats['defense'] ?? 'Unknown'}\n'
