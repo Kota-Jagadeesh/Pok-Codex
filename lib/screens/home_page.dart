@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text(
-          'Pokedex',
+          ' Pok-Codéx',
           style: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 40,
@@ -101,14 +101,17 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             // Pokémon Collection Header
             Center(
-              child: const Text(
-                'Pokémon Collection',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 247, 0, 255),
-                  // Center,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Pokémons: .... ',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 247, 0, 255),
+                    // Center,
+                  ),
                 ),
               ),
             ),
