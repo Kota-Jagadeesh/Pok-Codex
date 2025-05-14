@@ -28,8 +28,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _searchController.dispose();
+    _searchController
+        .dispose(); //searchcontroller is used to control a menu after it has created like openvie and closed view
     super.dispose();
+    //dispose is triggered when an object from the statefull widget is removed
   }
 
   Future<void> _fetchPokemon() async {
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         elevation: 0,
       ),
       body: Padding(
@@ -86,10 +88,10 @@ class _HomePageState extends State<HomePage> {
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Search Pokémon...',
-                hintStyle: const TextStyle(color: Colors.white54),
+                hintStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                 prefixIcon: const Icon(Icons.search, color: Colors.redAccent),
                 filled: true,
-                fillColor: Colors.grey[900],
+                fillColor: const Color.fromARGB(255, 158, 158, 158),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                   borderSide: BorderSide.none,
@@ -98,13 +100,16 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             // Pokémon Collection Header
-            const Text(
-              'Your Pokémon Collection',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 247, 0, 255),
+            Center(
+              child: const Text(
+                'Pokémon Collection',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 247, 0, 255),
+                  // Center,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -200,7 +205,8 @@ class _HomePageState extends State<HomePage> {
                                                 fontFamily: 'Roboto',
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
