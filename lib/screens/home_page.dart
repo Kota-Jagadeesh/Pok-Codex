@@ -197,7 +197,8 @@ class _HomePageState extends State<HomePage> {
                                                       stackTrace) =>
                                                   const Icon(
                                                 Icons.error,
-                                                color: Colors.red,
+                                                color: Color.fromARGB(
+                                                    255, 255, 17, 0),
                                                 size: 50,
                                               ),
                                             ),
@@ -209,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 230, 255, 88),
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
