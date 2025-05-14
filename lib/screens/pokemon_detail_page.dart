@@ -13,6 +13,7 @@ class PokemonDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      // *FOR THE TILE BAR IN THE POKEMON DETAIL PAGE*
       // appBar: AppBar(
       //   title: Text(
       //     pokemon.name,
