@@ -22,7 +22,7 @@ class Pokemon {
   final List<String> types;
   final double height;
   final double weight;
-  final List<String> abilities;
+  // final List<String> abilities;
   final Map<String, int> stats; // added stats property
 
   Pokemon({
@@ -31,7 +31,7 @@ class Pokemon {
     required this.types,
     required this.height,
     required this.weight,
-    required this.abilities,
+    // required this.abilities,
     required this.stats, // added to constructor
   });
 // factory method to convert json data to pokemon obj
@@ -45,9 +45,9 @@ class Pokemon {
           .toList(),
       height: (json['height'] / 10).toDouble(),
       weight: (json['weight'] / 10).toDouble(),
-      abilities: (json['abilities'] as List)
-          .map((ability) => ability['ability']['name'].toString())
-          .toList(),
+      // abilities: (json['abilities'] as List)
+      //     .map((ability) => ability['ability']['name'].toString())
+      //     .toList(),
       stats: Map.fromEntries(
         (json['stats'] as List).map(
           (stat) => MapEntry(
