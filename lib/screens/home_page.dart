@@ -5,9 +5,9 @@ import '../services/api_service.dart';
 import 'pokemon_detail_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key}); // constructor for the homepage
 
-  @override
+  @override // overridees the createstate method to link homegae to its state class _homepagestate
   _HomePageState createState() => _HomePageState();
 }
 
@@ -120,7 +120,8 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : _error != null
+                  : _error !=
+                          null // shows the error in red if there is an issue
                       ? Center(
                           child: Text(
                             'Error: $_error',
@@ -131,7 +132,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         )
-                      : _filteredPokemon.isEmpty
+                      : _filteredPokemon
+                              .isEmpty // shows no pokemon found if search gives no  resuts
                           ? const Center(
                               child: Text(
                                 'No Pokémon found',
