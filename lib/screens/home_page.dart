@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 20),
-            // pokémon collection header
+            // pokemon collection header
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
