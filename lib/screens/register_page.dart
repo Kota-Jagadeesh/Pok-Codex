@@ -108,9 +108,11 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _usernameController,
+                maxLength: 10,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  labelStyle: const TextStyle(color: Colors.grey),
+                  labelStyle:
+                      const TextStyle(color: Color.fromARGB(255, 0, 162, 255)),
                   filled: true,
                   fillColor: Colors.grey[900],
                   border: OutlineInputBorder(
@@ -123,9 +125,11 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
+                maxLength: 10,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  labelStyle: const TextStyle(color: Colors.grey),
+                  labelStyle:
+                      const TextStyle(color: Color.fromARGB(255, 0, 162, 255)),
                   filled: true,
                   fillColor: Colors.grey[900],
                   border: OutlineInputBorder(
@@ -139,9 +143,11 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
+                maxLength: 10,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  labelStyle: const TextStyle(color: Colors.grey),
+                  labelStyle:
+                      const TextStyle(color: Color.fromARGB(255, 0, 162, 255)),
                   filled: true,
                   fillColor: Colors.grey[900],
                   border: OutlineInputBorder(
