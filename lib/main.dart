@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/login_page.dart';
 
 void main() {
-  runApp(const PokedexApp());
+  runApp(const PokedexApp()); //root widget that deines the app theme
 }
 
 class PokedexApp extends StatelessWidget {
@@ -10,6 +10,7 @@ class PokedexApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //overriding the build method inherited from statelesswidget
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pok-Codex App',
@@ -30,9 +31,10 @@ class PokedexApp extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.cyan),
+        iconTheme: const IconThemeData(
+            color: Colors.cyan), //default color for all icons in the app
       ),
-      home: const LoginPage(), // updated to start with LoginPage
+      home: const LoginPage(), //sets the starting screen to loginpage
     );
   }
 }
