@@ -1,8 +1,80 @@
+// lib/screens/register_page.dart
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'login_page.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override //overrides the createstate metod to link the widget to its state class
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  //state class that manages the widgets dynamic data and ui
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  Future<void> _register() async {
+    setState(() {
+      //updates the ui
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Use 127.0.0.1 instead of localhost
+      final response = await http
+          .post(
+        Uri.parse('http://127.0.0.1:5000/register'), // Updated to 127.0.0.1
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'username': _usernameController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        }),
+      )
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw Exception(
+            'Request timed out. Please check your connection or server.');
+      });
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 201) {
+        Navigator.pushReplacement(
+          //ensures app cannot go to register screen
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      } else {
+        setState(() {
+          _errorMessage = data['error'] ?? 'Registration failed';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'An error occurred: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    //cleans up the resources to avoid memory leaks
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +107,7 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextFormField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   labelStyle: const TextStyle(color: Colors.grey),
@@ -49,6 +122,7 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: const TextStyle(color: Colors.grey),
@@ -64,6 +138,7 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: const TextStyle(color: Colors.grey),
@@ -77,33 +152,35 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 obscureText: true,
               ),
+              const SizedBox(height: 16),
+              if (_errorMessage != null)
+                Text(
+                  _errorMessage!,
+                  style: const TextStyle(color: Colors.red, fontSize: 14),
+                ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  // placeholder for backend registration logic
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.cyan,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-                child: const Text(
-                  'Register',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _register,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.cyan,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
