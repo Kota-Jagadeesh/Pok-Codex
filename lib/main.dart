@@ -1,15 +1,12 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
+import 'screens/login_page.dart';
 
 void main() {
-  runApp(
-      const PokedexApp()); // creates instance of pokedex widget and passes to runApp
+  runApp(const PokedexApp());
 }
 
 class PokedexApp extends StatelessWidget {
-  // the ui is fixed not updated dynamically
-  const PokedexApp({super.key}); // initialisess the pokedex widget
+  const PokedexApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +14,10 @@ class PokedexApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pok-Codex App',
       theme: ThemeData(
-        // class that definess app's visual styling
         brightness: Brightness.dark,
-        primarySwatch:
-            Colors.cyan, // used for appbars, buttons and other elements
+        primarySwatch: Colors.cyan,
         scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
         textTheme: const TextTheme(
-          // defines styles for diff text types
           headlineMedium: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 28,
@@ -38,7 +32,7 @@ class PokedexApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Colors.cyan),
       ),
-      home: const HomePage(),
+      home: const LoginPage(), // updated to start with LoginPage
     );
   }
 }
