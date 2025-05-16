@@ -85,6 +85,8 @@ class _HomePageState extends State<HomePage> {
             color: Color.fromARGB(255, 255, 217, 0),
           ),
         ),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
+        foregroundColor: Colors.blue,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         elevation: 0,
