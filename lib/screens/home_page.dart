@@ -3,9 +3,12 @@ import '../models/pokemon.dart';
 import '../services/api_service.dart';
 import 'pokemon_detail_page.dart';
 import 'login_page.dart';
+import 'captured.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final int userId;
+
+  const HomePage({super.key, required this.userId});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -95,7 +98,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search Bar
+            // search Bar
             TextField(
               controller: _searchController,
               style: const TextStyle(color: Colors.white),
@@ -111,8 +114,40 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            // pokemon collection header
+            const SizedBox(height: 10),
+            // button to view captured Pokémon
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          CapturedPokemonPage(userId: widget.userId),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.cyan,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+                child: const Text(
+                  'View Captured Pokémon',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            // Pokémon collection header
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -128,7 +163,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            // pokmon Grid
+            // pokemon Grid
             Expanded(
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -192,6 +227,7 @@ class _HomePageState extends State<HomePage> {
                                               builder: (context) =>
                                                   PokemonDetailPage(
                                                 pokemon: snapshot.data!,
+                                                userId: widget.userId,
                                               ),
                                             ),
                                           );
