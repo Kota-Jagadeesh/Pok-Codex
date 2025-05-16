@@ -1,42 +1,50 @@
 // import 'dart:convert'; // for json parsing
 
-//class to represent pokemon in api list responses
+// class to represent Pokemon in api list responses
 class PokemonListItem {
+  final int id; // added id field
   final String name;
-  final String url; // contains data for each pokeon in the list
+  final String url; // contins the data for each Pokémon in the list
 
-  PokemonListItem({required this.name, required this.url});
-// a factory method-converts json to pokemonlistitem
+  PokemonListItem({required this.id, required this.name, required this.url});
+
+  //factory method converts json to PokemonListItem
   factory PokemonListItem.fromJson(Map<String, dynamic> json) {
+    final url = json['url'] as String;
+    // extracts the id from the URL
+    final id = int.parse(url.split('/').where((part) => part.isNotEmpty).last);
     return PokemonListItem(
+      id: id,
       name: json['name'],
-      url: json['url'],
+      url: url,
     );
   }
 }
 
-// class for detailed pokemon page -  store complet info of pokemon
+// class for detailed Pokemon page to stores complete info of Pokemon
 class Pokemon {
+  final int id; //added ID field
   final String name;
   final String imageUrl;
   final List<String> types;
   final double height;
   final double weight;
-  // final List<String> abilities;
-  final Map<String, int> stats; // added stats property
+  final Map<String, int> stats; //added stats property
 
   Pokemon({
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.types,
     required this.height,
     required this.weight,
-    // required this.abilities,
-    required this.stats, // added to constructor
+    required this.stats,
   });
-// factory method to convert json data to pokemon obj
+
+  // factory method to convert JSON data to Pokeon object
   factory Pokemon.fromJson(Map<String, dynamic> json) {
     return Pokemon(
+      id: json['id'], // this directly use the ID from the JSON
       name: json['name'],
       imageUrl:
           json['sprites']['other']['official-artwork']['front_default'] ?? '',
@@ -45,9 +53,6 @@ class Pokemon {
           .toList(),
       height: (json['height'] / 10).toDouble(),
       weight: (json['weight'] / 10).toDouble(),
-      // abilities: (json['abilities'] as List)
-      //     .map((ability) => ability['ability']['name'].toString())
-      //     .toList(),
       stats: Map.fromEntries(
         (json['stats'] as List).map(
           (stat) => MapEntry(
@@ -55,7 +60,7 @@ class Pokemon {
             stat['base_stat'] as int,
           ),
         ),
-      ), // parse stats into a Map
+      ), // Parse stats into a map
     );
   }
 }
