@@ -8,7 +8,7 @@ class ApiService {
   Future<List<PokemonListItem>> fetchPokemonList(
       //refers to an obj that represents the value that is not yet available - but fetched at some point.
       {int limit = 100,
-      int offset = 50}) async {
+      int offset = 0}) async {
     //lets us to use await
     final response = await http
         .get(Uri.parse('$baseUrl/pokemon?limit=$limit&offset=$offset'));
