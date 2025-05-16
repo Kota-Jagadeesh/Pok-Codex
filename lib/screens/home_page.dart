@@ -57,25 +57,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _logout() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.cyan,
-            size: 28,
-          ),
-          tooltip: 'Back to Login',
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-            );
-          },
-        ),
         title: const Text(
           'Pok-Codéx',
           style: TextStyle(
@@ -85,7 +78,13 @@ class _HomePageState extends State<HomePage> {
             color: Color.fromARGB(255, 255, 217, 0),
           ),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.cyan, size: 28),
+            tooltip: 'Logout',
+            onPressed: _logout,
+          ),
+        ],
         foregroundColor: Colors.blue,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
