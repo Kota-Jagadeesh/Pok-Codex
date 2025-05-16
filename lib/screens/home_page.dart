@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
-                                                    255, 230, 255, 88),
+                                                    255, 255, 255, 255),
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
