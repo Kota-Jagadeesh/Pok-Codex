@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       // Use 127.0.0.1 instead of localhost
       final response = await http
           .post(
-        Uri.parse('http://127.0.0.1:5000/register'), // Updated to 127.0.0.1
+        Uri.parse('http://127.0.0.1:5000/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': _usernameController.text,
