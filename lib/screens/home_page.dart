@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 20),
-            // Pokémon Collection Header
+            // pokémon collection header
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            // Pokémon Grid
+            // pokmon Grid
             Expanded(
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
