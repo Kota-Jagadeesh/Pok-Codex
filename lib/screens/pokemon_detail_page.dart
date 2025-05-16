@@ -122,7 +122,7 @@ class PokemonDetailPage extends StatelessWidget {
                         fontFamily: 'Roboto',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                   ),
