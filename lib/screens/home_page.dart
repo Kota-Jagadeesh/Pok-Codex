@@ -1,13 +1,13 @@
-// lib/screens/home_page.dart
 import 'package:flutter/material.dart';
 import '../models/pokemon.dart';
 import '../services/api_service.dart';
 import 'pokemon_detail_page.dart';
+import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key}); // constructor for the homepage
+  const HomePage({super.key});
 
-  @override // overridees the createstate method to link homegae to its state class _homepagestate
+  @override
   _HomePageState createState() => _HomePageState();
 }
 
@@ -28,10 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _searchController
-        .dispose(); //searchcontroller is used to control a menu after it has created like openvie and closed view
+    _searchController.dispose();
     super.dispose();
-    //dispose is triggered when an object from the statefull widget is removed
   }
 
   Future<void> _fetchPokemon() async {
@@ -64,8 +62,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.cyan,
+            size: 28,
+          ),
+          tooltip: 'Back to Login',
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+        ),
         title: const Text(
-          ' Pok-Codéx',
+          'Pok-Codéx',
           style: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 40,
@@ -110,7 +122,6 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 247, 0, 255),
-                    // Center,
                   ),
                 ),
               ),
@@ -120,8 +131,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : _error !=
-                          null // shows the error in red if there is an issue
+                  : _error != null
                       ? Center(
                           child: Text(
                             'Error: $_error',
@@ -132,8 +142,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         )
-                      : _filteredPokemon
-                              .isEmpty // shows no pokemon found if search gives no  resuts
+                      : _filteredPokemon.isEmpty
                           ? const Center(
                               child: Text(
                                 'No Pokémon found',
