@@ -13,24 +13,14 @@ class PokemonDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      // *FOR THE TILE BAR IN THE POKEMON DETAIL PAGE*
-      // appBar: AppBar(
-      //   title: Text(
-      //     pokemon.name,
-      //     style: const TextStyle(
-      //       fontFamily: 'Roboto',
-      //       fontSize: 28,
-      //       fontWeight: FontWeight.bold,
-      //       color: Color(0xFFCE93D8),
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.black,
-      //   elevation: 0,
-      // ),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(100.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -59,10 +49,9 @@ class PokemonDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Type: ${pokemon.types.join(', ')}\n'
+                'Type: ${pokemon.types.isNotEmpty ? pokemon.types.join(', ') : 'Unknown'}\n'
                 'Height: ${pokemon.height} m\n'
                 'Weight: ${pokemon.weight} kg\n'
-                // 'Abilities: ${pokemon.abilities.join(', ')}\n'
                 'HP: ${pokemon.stats['hp'] ?? 'Unknown'}\n'
                 'Attack: ${pokemon.stats['attack'] ?? 'Unknown'}\n'
                 'Defense: ${pokemon.stats['defense'] ?? 'Unknown'}\n'
@@ -76,7 +65,70 @@ class PokemonDetailPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // placeholder for apture functionality
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${pokemon.name} captured!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Capture',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      // placeholder for trade functionality
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Trade initiated for ${pokemon.name}!'),
+                          backgroundColor: Colors.blue,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Trade',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
