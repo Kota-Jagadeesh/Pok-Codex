@@ -1,4 +1,4 @@
-import 'dart:convert'; //tool for encoding and decoding data
+import 'dart:convert'; // Tool for encoding and decoding data
 import 'package:http/http.dart' as http;
 import '../models/pokemon.dart';
 
@@ -6,10 +6,7 @@ class ApiService {
   static const String baseUrl = 'https://pokeapi.co/api/v2';
 
   Future<List<PokemonListItem>> fetchPokemonList(
-      //refers to an obj that represents the value that is not yet available - but fetched at some point.
-      {int limit = 100,
-      int offset = 0}) async {
-    //lets us to use await
+      {int limit = 1500, int offset = 0}) async {
     final response = await http
         .get(Uri.parse('$baseUrl/pokemon?limit=$limit&offset=$offset'));
     if (response.statusCode == 200) {
@@ -28,6 +25,15 @@ class ApiService {
       return Pokemon.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load Pokémon details');
+    }
+  }
+
+  Future<Pokemon> fetchPokemonDetailsById(String id) async {
+    final response = await http.get(Uri.parse('$baseUrl/pokemon/$id'));
+    if (response.statusCode == 200) {
+      return Pokemon.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Pokémon details for ID $id');
     }
   }
 }
