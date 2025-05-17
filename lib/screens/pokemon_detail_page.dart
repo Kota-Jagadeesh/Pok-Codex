@@ -46,6 +46,116 @@ class PokemonDetailPage extends StatelessWidget {
     }
   }
 
+  Future<List<Map<String, dynamic>>> _fetchUsers() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/users'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return List<Map<String, dynamic>>.from(data['users']);
+      } else {
+        throw Exception('Failed to load users');
+      }
+    } catch (e) {
+      throw Exception('Error fetching users: $e');
+    }
+  }
+
+  Future<void> _tradePokemon(BuildContext context) async {
+    try {
+      // fetches the list of users
+      final users = await _fetchUsers();
+
+      // filters out the current user
+      final otherUsers = users.where((user) => user['id'] != userId).toList();
+
+      if (otherUsers.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No other users available to trade with'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      //shows a dialog to select a user to trade with
+      await showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: const Text('Select User to Trade With'),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: otherUsers.length,
+                itemBuilder: (context, index) {
+                  final user = otherUsers[index];
+                  return ListTile(
+                    title: Text(user['username']),
+                    onTap: () async {
+                      Navigator.of(dialogContext).pop(); // cloae the dialog
+                      //initiate the trade
+                      try {
+                        final response = await http.post(
+                          Uri.parse('http://localhost:5000/trade'),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({
+                            'sender_user_id': userId,
+                            'receiver_user_id': user['id'],
+                            'pokemon_id': pokemon.id,
+                          }),
+                        );
+
+                        if (response.statusCode == 201 ||
+                            response.statusCode == 200) {
+                          final data = jsonDecode(response.body);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(data['message']),
+                              backgroundColor: response.statusCode == 201
+                                  ? Colors.blue
+                                  : Colors.orange,
+                            ),
+                          );
+                        } else {
+                          throw Exception('Failed to trade Pokémon');
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Error: $e'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                child: const Text('Cancel'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,14 +238,7 @@ class PokemonDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Trade initiated for ${pokemon.name}!'),
-                          backgroundColor: Colors.blue,
-                        ),
-                      );
-                    },
+                    onPressed: () => _tradePokemon(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(
@@ -150,7 +253,7 @@ class PokemonDetailPage extends StatelessWidget {
                         fontFamily: 'Roboto',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),
