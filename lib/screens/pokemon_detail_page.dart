@@ -1,13 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../models/pokemon.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   final Pokemon pokemon;
+  final int userId;
 
   const PokemonDetailPage({
     super.key,
     required this.pokemon,
+    required this.userId,
   });
+
+  Future<void> _capturePokemon(BuildContext context) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:5000/capture'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'user_id': userId,
+          'pokemon_id': pokemon.id,
+        }),
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(data['message']),
+            backgroundColor:
+                response.statusCode == 201 ? Colors.green : Colors.orange,
+          ),
+        );
+      } else {
+        throw Exception('Failed to capture Pokémon');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +107,7 @@ class PokemonDetailPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      // placeholder for apture functionality
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${pokemon.name} captured!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    },
+                    onPressed: () => _capturePokemon(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       padding: const EdgeInsets.symmetric(
@@ -100,7 +129,6 @@ class PokemonDetailPage extends StatelessWidget {
                   const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
-                      // placeholder for trade functionality
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Trade initiated for ${pokemon.name}!'),
