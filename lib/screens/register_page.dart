@@ -1,4 +1,3 @@
-// lib/screens/register_page.dart
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -7,12 +6,11 @@ import 'login_page.dart';
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
-  @override //overrides the createstate metod to link the widget to its state class
+  @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  //state class that manages the widgets dynamic data and ui
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -21,13 +19,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> _register() async {
     setState(() {
-      //updates the ui
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Use 127.0.0.1 instead of localhost
       final response = await http
           .post(
         Uri.parse('http://127.0.0.1:5000/register'),
@@ -46,8 +42,15 @@ class _RegisterPageState extends State<RegisterPage> {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registration successful! Please login.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        await Future.delayed(const Duration(
+            seconds: 1)); // brief delay for user to see the message
         Navigator.pushReplacement(
-          //ensures app cannot go to register screen
           context,
           MaterialPageRoute(builder: (context) => const LoginPage()),
         );
@@ -69,7 +72,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    //cleans up the resources to avoid memory leaks
     _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
